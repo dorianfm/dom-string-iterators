@@ -1,5 +1,5 @@
 {
-    "name": "antoligy/dom-string-iterators",
+    "name": "dorianfm/dom-string-iterators",
     "description": "Composer package for DOMWordsIterator and DOMLettersIterator",
     "type": "library",
     "require": {
@@ -18,6 +18,10 @@
         {
             "name": "Patrick Galbraith",
             "email": "patrick.j.galbraith@gmail.com"
+        },
+        {
+            "name": "Dorian Fraser-Moore",
+            "email": "dorian+code@theusefularts.rog"
         }
     ],
     "autoload": {

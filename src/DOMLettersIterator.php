@@ -85,7 +85,7 @@ final class DOMLettersIterator implements Iterator
         while(!$this->current->nextSibling && $this->current->parentNode)
         {
             $this->current = $this->current->parentNode;
-            if ($this->current === $this->start) {$this->current = NULL; return;}
+            if ($this->current === $this->start && !$this->current->nextSibling) {$this->current = NULL; return;}
         }
 
         $this->current = $this->current->nextSibling;

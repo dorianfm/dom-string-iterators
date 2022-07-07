@@ -17,7 +17,7 @@
  */
 
 final class DOMWordsIterator implements Iterator {
-    
+
     private $start, $current;
     private $offset, $key, $words;
 
@@ -30,7 +30,7 @@ final class DOMWordsIterator implements Iterator {
         else if ($el instanceof DOMElement) $this->start = $el;
         else throw new InvalidArgumentException("Invalid arguments, expected DOMElement or DOMDocument");
     }
-    
+
     /**
      * Returns position in text as DOMText node and character offset.
      * (it's NOT a byte offset, you must use mb_substr() or similar to use this offset properly).
@@ -52,13 +52,13 @@ final class DOMWordsIterator implements Iterator {
     {
         return $this->current ? $this->current->parentNode : NULL;
     }
-    
+
     // Implementation of Iterator interface
     function key()
     {
         return $this->key;
     }
-    
+
     function next()
     {
         if (!$this->current) return;
@@ -72,8 +72,8 @@ final class DOMWordsIterator implements Iterator {
                 $this->words = preg_split("/[\n\r\t ]+/", $this->current->textContent, -1, PREG_SPLIT_NO_EMPTY|PREG_SPLIT_OFFSET_CAPTURE);
             }
             $this->offset++;
-            
-            if ($this->offset < count($this->words)) { 
+
+            if ($this->offset < count($this->words)) {
                 $this->key++;
                 return;
             }
@@ -89,7 +89,7 @@ final class DOMWordsIterator implements Iterator {
         while(!$this->current->nextSibling && $this->current->parentNode)
         {
             $this->current = $this->current->parentNode;
-            if ($this->current === $this->start) {$this->current = NULL; return;}
+            if ($this->current === $this->start  && !$this->current->nextSibling) {$this->current = NULL; return;}
         }
 
         $this->current = $this->current->nextSibling;
