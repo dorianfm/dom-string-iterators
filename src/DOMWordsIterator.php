@@ -54,12 +54,12 @@ final class DOMWordsIterator implements Iterator {
     }
 
     // Implementation of Iterator interface
-    function key()
+    function key(): mixed
     {
         return $this->key;
     }
 
-    function next()
+    function next(): void
     {
         if (!$this->current) return;
 
@@ -83,7 +83,7 @@ final class DOMWordsIterator implements Iterator {
         while($this->current->nodeType == XML_ELEMENT_NODE && $this->current->firstChild)
         {
             $this->current = $this->current->firstChild;
-            if ($this->current->nodeType == XML_TEXT_NODE || $this->current->nodeType == XML_CDATA_SECTION_NODE) return $this->next();
+            if ($this->current->nodeType == XML_TEXT_NODE || $this->current->nodeType == XML_CDATA_SECTION_NODE) return;
         }
 
         while(!$this->current->nextSibling && $this->current->parentNode)
@@ -93,25 +93,24 @@ final class DOMWordsIterator implements Iterator {
         }
 
         $this->current = $this->current->nextSibling;
-
-        return $this->next();
     }
 
-    function current()
+    function current(): mixed
     {
         if ($this->current) return $this->words[$this->offset][0];
         return NULL;
     }
 
-    function valid()
+
+    function valid(): bool
     {
         return !!$this->current;
     }
 
-    function rewind()
+	#[\ReturnTypeWillChange]
+    function rewind(): void
     {
         $this->offset = -1; $this->words = array();
         $this->current = $this->start;
-        $this->next();
-    }
+	}
 }
